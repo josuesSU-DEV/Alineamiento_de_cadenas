@@ -24,7 +24,7 @@ def calculate_score(first_string, second_string):
 # score final, (ii)la matriz de scores, (iii)la cantidad de alineamiento producidos y (iv)los alineamientos generados.
 
 
-def global_alignment(string1, string2):
+def global_alignment(string1, string2,filename):
     score_matrix = [[0] * (len(string2) + 1) for _ in range(len(string1) + 1)]
 
     for i in range(len(string1) + 1):
@@ -61,7 +61,7 @@ def global_alignment(string1, string2):
 
     alignments.append(alignment)
 
-    with open("global_alignment.txt", "w") as file:
+    with open(filename, "w") as file:
         file.write(f"Score final: {final_score}\n\n")
         file.write("Matriz de scores:\n")
         for row in score_matrix:
@@ -71,7 +71,48 @@ def global_alignment(string1, string2):
         for alignment in alignments:
             file.write(alignment + "\n")
 
-string1 = "AGTACGCA"
-string2 = "TATGC"
-global_alignment(string1, string2)
+# 1ra parte
+#10 bacteria
+#10 influenza
+bacteria="tcaagcgtta"
+influenza="atggaagcaa"
 
+global_alignment(bacteria, influenza,"test_1.txt")
+
+#2da parte
+# 10 sarscov
+# 10 influenza
+sarscov="attaaaggtt"
+influenza="atggaagcaa"
+
+global_alignment(sarscov, influenza,"test_2.txt")
+
+
+# 3ra parte:
+# 30 sarscov
+# 30 bacteria
+sarscov="attaaaggtttataccttcccaggtaacaa"
+bacteria="tcaagcgttagagaagtcattatgtgataa"
+for i in range(len(sarscov)): 
+    global_alignment(sarscov, bacteria,"test_3.txt")
+
+# 4ta parte
+# 60 bacteria
+# 30 influenaza
+bacteria="tcaagcgttagagaagtcattatgtgataaaaaaattcaacttggtatcaacttaactaa"
+influenza="atggaagcaatatcactgatgactatacta"
+global_alignment(bacteria, influenza,"test_4.txt")
+
+# 5ta 
+# 60 influenza
+# 120 sarscov
+influenza="atggaagcaatatcactgatgactatactactggtggtaacaacaagtaatgcagacaaa"
+sarscov="attaaaggtttataccttcccaggtaacaaaccaaccaactttcgatctcttgtagatctgttctctaaacgaactttaaaatctgtgtggctgtcactcggctgcatgcttagtgcact"
+global_alignment(bacteria, influenza,"test_5.txt")
+
+# 5ta 
+# 120 sarscov
+# 240 influenza
+sarscov="attaaaggtttataccttcccaggtaacaaaccaaccaactttcgatctcttgtagatctgttctctaaacgaactttaaaatctgtgtggctgtcactcggctgcatgcttagtgcact"
+influenza="atggaagcaatatcactgatgactatactactggtggtaacaacaagtaatgcagacaaaatctgcatcggtcaccaatcaacaaattccacggaaactgtagacacgctaacagaaacaaatgttcctgtaacacaagccaaagaattgctccacacagaacacaatgggatgctatgtgcaacaaatctgggacgtcctcttatcctagacacatgcaccattgaaggactgatctat"
+global_alignment(bacteria, influenza,"test_6.txt")
